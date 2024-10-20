@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import session from "express-session";
 import passport from "passport";
-import connectDb from "./config/dbConnect.js";
+import connectDb from "./config/db.config.js";
 import authRoutes from "./routes/auth.routes.js";
 import mfaRoutes from "./routes/mfa.routes.js";
 
@@ -41,6 +41,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Routes
+app.use("/test", (req, res) => {
+  res.send("hello world");
+});
 app.use("/api/auth", authRoutes);
 app.use("/api/auth/mfa", mfaRoutes);
 
