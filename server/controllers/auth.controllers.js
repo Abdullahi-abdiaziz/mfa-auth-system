@@ -42,9 +42,21 @@ export const login = async (req, res) => {
 };
 
 export const logout = async (req, res) => {
-  res.json({ message: "Logout successful" });
+  if (!req.user) return res.status(401).json({ message: "Unauthorized User" });
+  req.logout((err) => {
+    if (err) return res.status(400).json({ message: "User not logged in" });
+    res.status(200).json({ message: "User logged out" });
+  });
 };
 
 export const status = async (req, res) => {
-  res.json({ message: "API is running" });
+  if (req.user) {
+    return res.status(200).json({
+      message: "User is logged in",
+      email: req.user.email,
+      isMfaActive: req.user.isMfaActive,
+    });
+  } else {
+    return res.status(401).json({ message: "Unauthorized User" });
+  }
 };

@@ -6,13 +6,10 @@ import passport from "passport";
 import connectDb from "./config/db.config.js";
 import authRoutes from "./routes/auth.routes.js";
 import mfaRoutes from "./routes/mfa.routes.js";
-
 dotenv.config();
 
 connectDb();
 const app = express();
-
-// Load environment variables from .env file
 
 const corsOptions = {
   origin: "http://localhost:5173",
@@ -31,9 +28,9 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      maxAge: 60 * 60 * 1000, // 1 year in milliseconds
-      httpOnly: true, // HttpOnly cookies can't be accessed by client-side JavaScript
-      secure: false, // Set to true in production environment to enable HTTPS cookie secure flag
+      maxAge: 1000 * 60 * 60 * 24,
+      httpOnly: true,
+      secure: false,
     },
   })
 );
