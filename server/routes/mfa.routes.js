@@ -10,6 +10,6 @@ const router = new Router();
 
 router.post("/setup", verifyIsAuthenticated, setupMfa);
 router.post("/verify", verifyIsAuthenticated, verifyMfa);
-router.get("/reset", verifyIsAuthenticated, resetMfa);
+router.post("/reset", verifyIsAuthenticated, resetMfa);
 
 export default router;
