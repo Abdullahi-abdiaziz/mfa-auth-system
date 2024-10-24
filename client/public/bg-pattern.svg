@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" viewBox="0 0 325 100">
+  <defs>
+    <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="ssspill-grad">
+      <stop stop-color="hsl(37, 99%, 67%)" stop-opacity="0.5" offset="45%"></stop>
+      <stop stop-color="hsl(316, 73%, 52%)" stop-opacity="0.5" offset="100%"></stop>
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="none"></rect> <!-- Set to transparent -->
+  <g fill="url(#ssspill-grad)">
+    <rect width="100%" height="40" fill="hsl(37, 99%, 67%)" fill-opacity="0.5"></rect> <!-- Add transparency -->
+    <rect x="0" width="4%" height="87.31554521521757" rx="9"></rect>
+    <rect x="8%" width="4%" height="86.72192506689709" rx="9"></rect>
+    <rect x="16%" width="4%" height="69.47418034780151" rx="9"></rect>
+    <rect x="24%" width="4%" height="66.05566871419207" rx="9"></rect>
+    <rect x="32%" width="4%" height="72.03133942886188" rx="9"></rect>
+    <rect x="40%" width="4%" height="81.78348032975401" rx="9"></rect>
+    <rect x="48%" width="4%" height="88.7664880970377" rx="9"></rect>
+    <rect x="56%" width="4%" height="60.4287731569981" rx="9"></rect>
+    <rect x="64%" width="4%" height="66.85744179566882" rx="9"></rect>
+    <rect x="72%" width="4%" height="94.79867643298968" rx="9"></rect>
+    <rect x="80%" width="4%" height="81.5866723533234" rx="9"></rect>
+    <rect x="88%" width="4%" height="85.70240861104968" rx="9"></rect>
+    <rect x="96%" width="4%" height="63.719782613396056" rx="9"></rect>
+  </g>
+  <g fill="hsl(0, 0%, 100%)" fill-opacity="0"> <!-- Add transparency -->
+    <rect x="4%" y="14.664616938748479" width="4%" height="60" rx="9"></rect>
+    <rect x="12%" y="3.760066548168586" width="4%" height="60" rx="9"></rect>
+    <rect x="20%" y="9.760778328439406" width="4%" height="60" rx="9"></rect>
+    <rect x="28%" y="2.5801032758180007" width="4%" height="60" rx="9"></rect>
+    <rect x="36%" y="19.160735720691275" width="4%" height="60" rx="9"></rect>
+    <rect x="44%" y="19.699895016547593" width="4%" height="60" rx="9"></rect>
+    <rect x="52%" y="7.0142315847374865" width="4%" height="60" rx="9"></rect>
+    <rect x="60%" y="15.453526661659929" width="4%" height="60" rx="9"></rect>
+    <rect x="68%" y="7.48319148099076" width="4%" height="60" rx="9"></rect>
+    <rect x="76%" y="8.35199607057972" width="4%" height="60" rx="9"></rect>
+    <rect x="84%" y="6.057828008982208" width="4%" height="60" rx="9"></rect>
+    <rect x="92%" y="11.06343165180975" width="4%" height="60" rx="9"></rect>
+  </g>
+</svg>

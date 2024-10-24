@@ -1,28 +1,31 @@
-import Form from "../components/Form";
+import RegisterForm from "../components/RegisterForm";
+import { motion } from "framer-motion";
 
 const RegisterPage = () => {
   return (
-    <Form>
-      <h2 className="text-3xl font-extrabold  mx-auto p-3">
-        Create an account
-      </h2>
-      <Form.Email />
-      <Form.Username />
-      <Form.Password />
-      <Form.ConfirmPassword />
-      <button
-        type="submit"
-        className="w-full p-2 rounded-sm bg-blue-500 text-white"
+    <div className=" flex w-screen h-screen ">
+      <motion.div
+        className="hidden md:flex flex-1 max-h-full  items-center justify-center bg-orange-500 rounded-e-2xl m-2 ml-0"
+        initial={{ opacity: 0, x: -100 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ type: "spring", duration: 1 }}
       >
-        Sign Up
-      </button>
-      <p className="mt-1 text-center text-sm">
-        Already have an account?{" "}
-        <a href="/login" className="ml-2 text-blue-500">
-          Login
-        </a>
-      </p>
-    </Form>
+        <img src="./login.png" className="w-1/2 object-cover m-4" alt="Login" />
+      </motion.div>
+      <motion.div
+        className="flex-1 flex flex-col justify-center items-center"
+        initial={{ opacity: 0, x: 100 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ type: "spring", duration: 1 }}
+      >
+        <div className="shadow-2xl rounded-md border-2 border-slate-50 bg-white bg-opacity-70 m-2 py-5">
+          <h2 className="text-3xl font-extrabold  mx-auto p-3 text-center uppercase text-black">
+            Create an account
+          </h2>
+          <RegisterForm />
+        </div>
+      </motion.div>
+    </div>
   );
 };
 

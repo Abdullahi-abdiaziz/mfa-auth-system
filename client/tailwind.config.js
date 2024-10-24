@@ -1,8 +1,18 @@
+import daisyui from "daisyui";
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        "custom-gradient":
+          "url('data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20version=%221.1%22%20xmlns:xlink=%22http://www.w3.org/1999/xlink%22%20xmlns:svgjs=%22http://svgjs.dev/svgjs%22%20viewBox=%220%200%20325%20100%22%3E%3Cdefs%3E%3ClinearGradient%20x1=%2250%25%22%20y1=%220%25%22%20x2=%2250%25%22%20y2=%22100%25%22%20id=%22ssspill-grad%22%3E%3Cstop%20stop-color=%22hsl(37,%2099%25,%2067%25)%22%20stop-opacity=%220.5%22%20offset=%2245%25%22%3E%3C/stop%3E%3Cstop%20stop-color=%22hsl(316,%2073%25,%2052%25)%22%20stop-opacity=%220.5%22%20offset=%22100%25%22%3E%3C/stop%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width=%22100%25%22%20height=%22100%25%22%20fill=%22none%22%3E%3C/rect%3E%3Cg%20fill=%22url(%23ssspill-grad)%22%3E%3Crect%20width=%22100%25%22%20height=%2240%22%20fill=%22hsl(37,%2099%25,%2067%25)%22%20fill-opacity=%220.5%22%3E%3C/rect%3E%3Crect%20x=%220%22%20width=%224%25%22%20height=%2287.31554521521757%22%20rx=%229%22%3E%3C/rect%3E%3Crect%20x=%228%25%22%20width=%224%25%22%20height=%2286.72192506689709%22%20rx=%229%22%3E%3C/rect%3E%3Crect%20x=%2216%25%22%20width=%224%25%22%20height=%2269.47418034780151%22%20rx=%229%22%3E%3C/rect%3E%3Crect%20x=%2224%25%22%20width=%224%25%22%20height=%2266.05566871419207%22%20rx=%229%22%3E%3C/rect%3E%3Crect%20x=%2232%25%22%20width=%224%25%22%20height=%2272.03133942886188%22%20rx=%229%22%3E%3C/rect%3E%3Crect%20x=%2240%25%22%20width=%224%25%22%20height=%2281.78348032975401%22%20rx=%229%22%3E%3C/rect%3E%3Crect%20x=%2248%25%22%20width=%224%25%22%20height=%2288.7664880970377%22%20rx=%229%22%3E%3C/rect%3E%3Crect%20x=%2256%25%22%20width=%224%25%22%20height=%2260.4287731569981%22%20rx=%229%22%3E%3C/rect%3E%3Crect%20x=%2264%25%22%20width=%224%25%22%20height=%2266.85744179566882%22%20rx=%229%22%3E%3C/rect%3E%3Crect%20x=%2272%25%22%20width=%224%25%22%20height=%2294.79867643298968%22%20rx=%229%22%3E%3C/rect%3E%3Crect%20x=%2280%25%22%20width=%224%25%22%20height=%2281.5866723533234%22%20rx=%229%22%3E%3C/rect%3E%3Crect%20x=%2288%25%22%20width=%224%25%22%20height=%2285.70240861104968%22%20rx=%229%22%3E%3C/rect%3E%3Crect%20x=%2296%25%22%20width=%224%25%22%20height=%2263.719782613396056%22%20rx=%229%22%3E%3C/rect%3E%3C/g%3E%3Cg%20fill=%22hsl(0,%200%25,%20100%25)%22%20fill-opacity=%220.5%22%3E%3Crect%20x=%224%25%22%20y=%2214.664616938748479%22%20width=%224%25%22%20height=%2260%22%20rx=%229%22%3E%3C/rect%3E%3Crect%20x=%2212%25%22%20y=%223.760066548168586%22%20width=%224%25%22%20height=%2260%22%20rx=%229%22%3E%3C/rect%3E%3Crect%20x=%2220%25%22%20y=%229.760778328439406%22%20width=%224%25%22%20height=%2260%22%20rx=%229%22%3E%3C/rect%3E%3Crect%20x=%2228%25%22%20y=%222.5801032758180007%22%20width=%224%25%22%20height=%2260%22%20rx=%229%22%3E%3C/rect%3E%3Crect%20x=%2236%25%22%20y=%2219.160735720691275%22%20width=%224%25%22%20height=%2260%22%20rx=%229%22%3E%3C/rect%3E%3Crect%20x=%2244%25%22%20y=%2219.699895016547593%22%20width=%224%25%22%20height=%2260%22%20rx=%229%22%3E%3C/rect%3E%3Crect%20x=%2252%25%22%20y=%227.0142315847374865%22%20width=%224%25%22%20height=%2260%22%20rx=%229%22%3E%3C/rect%3E%3Crect%20x=%2260%25%22%20y=%2215.453526661659929%22%20width=%224%25%22%20height=%2260%22%20rx=%229%22%3E%3C/rect%3E%3Crect%20x=%2268%25%22%20y=%227.48319148099076%22%20width=%224%25%22%20height=%2260%22%20rx=%229%22%3E%3C/rect%3E%3Crect%20x=%2276%25%22%20y=%228.35199607057972%22%20width=%224%25%22%20height=%2260%22%20rx=%229%22%3E%3C/rect%3E%3Crect%20x=%2284%25%22%20y=%226.057828008982208%22%20width=%224%25%22%20height=%2260%22%20rx=%229%22%3E%3C/rect%3E%3Crect%20x=%2292%25%22%20y=%2211.06343165180975%22%20width=%224%25%22%20height=%2260%22%20rx=%229%22%3E%3C/rect%3E%3C/g%3E%3C/svg%3E')",
+      },
+      backgroundPosition: {
+        "custom-pos": "30% 20%",
+      },
+    },
   },
-  plugins: [],
+  plugins: [daisyui],
 };

@@ -1,0 +1,102 @@
+import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { loginSchema } from "../types/schema";
+import { loginUser } from "../services/api.auth";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import Loading from "./Loading";
+import { motion } from "framer-motion";
+
+const LoginForm = () => {
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    resolver: zodResolver(loginSchema),
+  });
+
+  const navigate = useNavigate();
+
+  const onSubmit = async (data) => {
+    try {
+      const response = await loginUser(data);
+
+      if (response.data) {
+        return navigate("/");
+      }
+
+      setErrorMessage(response.data.message);
+    } catch (error) {
+      setErrorMessage(error.response.data.message);
+    }
+  };
+
+  return (
+    <form
+      className="flex flex-col gap-4 justify-center items-start mx-auto text-black p-10 text-base"
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <div>
+        <label>Email</label>
+        <input
+          type="email"
+          placeholder="Your email"
+          autoComplete="false"
+          id="email"
+          {...register("email")}
+          className="w-[300px] md:w-[320px] lg:w-[400px]  block rounded-lg bg-slate-50 p-2 border-2 border-gray-200"
+        />
+        {errors.email && (
+          <p className="text-red-500 mt-1">{errors.email.message}</p>
+        )}
+      </div>
+      <div>
+        <label>Password</label>
+        <input
+          autoComplete="false"
+          placeholder="Your password"
+          type="password"
+          id="password"
+          {...register("password")}
+          className="w-[300px] md:w-[320px] lg:w-[400px] block rounded-lg bg-slate-50 p-2 border-2 border-gray-200"
+        />
+        {errors.password && (
+          <p className="text-red-500 mt-1">{errors.password.message}</p>
+        )}
+      </div>
+
+      {errorMessage && (
+        <motion.p
+          className="text-red-500 mt-2 bg-red-100 p-2 text-center rounded font-bold mx-auto w-full"
+          initial={{ opacity: 0, x: 100 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ type: "spring", duration: 0.2 }}
+        >
+          {errorMessage}
+        </motion.p>
+      )}
+      {/* Display Success Message */}
+
+      <button
+        type="submit"
+        className="w-full p-2 mt-4 rounded-md bg-blue-500 text-white hover:bg-blue-600 transition-all duration-300"
+        disabled={isSubmitting}
+      >
+        {isSubmitting ? <Loading /> : "Login"}
+      </button>
+
+      <p className=" text-center text-sm mx-auto">
+        Don&apos;t have an account?{" "}
+        <Link to="/register" className="ml-1 text-blue-500 hover:underline">
+          Sign up
+        </Link>
+      </p>
+    </form>
+  );
+};
+
+export default LoginForm;

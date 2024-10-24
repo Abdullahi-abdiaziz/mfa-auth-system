@@ -3,8 +3,8 @@ import router from "./routes";
 
 const App = () => {
   return (
-    <div className="bg-slate-900 h-screen">
-      <div className="flex justify-center items-center text-white h-screen text-4xl">
+    <div className=" h-screen flex justify-center items-center bg-custom-gradient bg-contain bg-no-repeat relative z-50 bg-white">
+      <div>
         <RouterProvider router={router} />
       </div>
     </div>

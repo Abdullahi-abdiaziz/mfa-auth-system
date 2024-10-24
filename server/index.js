@@ -13,10 +13,8 @@ connectDb();
 const app = express();
 
 const corsOptions = {
-  origin: "http://localhost:5173",
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  origin: "http://localhost:3001",
   credentials: true,
-  optionsSuccessStatus: 200,
 };
 
 // Middleware
