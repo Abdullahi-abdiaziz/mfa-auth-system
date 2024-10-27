@@ -5,7 +5,7 @@ import passport from "passport";
 
 export const register = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { username, email, password, confirmPassword } = req.body;
 
     if (!username || !email || !password) {
       return res
@@ -21,12 +21,19 @@ export const register = async (req, res) => {
         .json({ success: false, message: "User already exists" });
     }
 
+    if (confirmPassword !== password) {
+      return res
+        .status(400)
+        .json({ success: false, message: "check your password" });
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = new User({
       username,
       email,
       password: hashedPassword,
+      confirmPassword: hashedPassword,
       isMfaActive: false,
     });
     await newUser.save();
@@ -39,7 +46,7 @@ export const register = async (req, res) => {
     if (error.code === 11000) {
       return res.status(500).json({
         success: false,
-        message: "User is already registered",
+        message: "User is already registered, try to login",
         error: error.message,
       });
     }
@@ -65,6 +72,14 @@ export const login = async (req, res, next) => {
           .status(500)
           .json({ message: "Login failed. Please try again." });
       }
+
+      user = {
+        id: user._id,
+        username: user.username,
+        email: user.email,
+        isMfaActive: user.isMfaActive,
+      };
+
       return res.status(200).json({ message: "Login successful", user });
     });
   })(req, res, next);
@@ -83,6 +98,7 @@ export const status = async (req, res) => {
     return res.status(200).json({
       message: "User is logged in",
       email: req.user.email,
+      username: req.user.username,
       isMfaActive: req.user.isMfaActive,
     });
   } else {

@@ -3,13 +3,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema } from "../types/schema";
 import { registerUser } from "../services/api.auth";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import Loading from "./Loading";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 const RegisterForm = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  const navigate = useNavigate();
 
   const {
     register,
@@ -28,6 +32,7 @@ const RegisterForm = () => {
       if (response.data.success) {
         reset();
         setSuccessMessage(response.data.message);
+        navigate("/login");
       } else {
         setErrorMessage(response.data.message);
       }
@@ -41,14 +46,16 @@ const RegisterForm = () => {
   };
 
   useEffect(() => {
-    if (errorMessage || successMessage) {
+    if (errorMessage || successMessage || showPassword) {
       const timer = setTimeout(() => {
         setErrorMessage(null);
         setSuccessMessage(null);
+        setShowPassword(false);
       }, 3000);
       return () => clearTimeout(timer);
     }
-  }, [errorMessage, successMessage]);
+  }, [errorMessage, successMessage, showPassword]);
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="p-10 text-black">
       <div className="mb-4">
@@ -79,34 +86,44 @@ const RegisterForm = () => {
           <p className="text-red-500 mt-1">{errors.username.message}</p>
         )}
       </div>
-      <div className="mb-4">
+      <div className="mb-4 relative">
         <label>Password</label>
         <input
-          type="password"
-          placeholder="*********"
+          type={showPassword ? "text" : "password"}
+          placeholder="............"
           autoComplete="false"
           id="password"
           {...register("password")}
           className="w-[300px] md:w-[320px] lg:w-[400px] block  rounded-lg bg-slate-50 p-2 border-2 border-gray-200"
         />
+        <div
+          className="absolute top-9 right-5 cursor-pointer p-1 rounded-md hover:bg-slate-200"
+          onClick={() => setShowPassword((prev) => !prev)}
+        >
+          {showPassword ? <FiEyeOff /> : <FiEye />}
+        </div>
         {errors.password && (
           <p className="text-red-500 mt-1">{errors.password.message}</p>
         )}
       </div>
-      {/* <div className="mb-4">
-            <label>Confirm Password</label>
-            <input
-              type="password"
-              id="confirmPassword"
-              {...register("confirmPassword")}
-              className="w-[300px] md:w-[320px] lg:w-[400px] block rounded-sm bg-slate-100 p-2 border border-gray-400"
-            />
-            {errors.confirmPassword && (
-              <p className="text-red-500 mt-1">
-                {errors.confirmPassword.message}
-              </p>
-            )}
-          </div> */}
+      <div className="mb-4 relative">
+        <label>Confirm Password</label>
+        <input
+          type={showPassword ? "text" : "password"}
+          id="confirmPassword"
+          {...register("confirmPassword")}
+          className="w-[300px] md:w-[320px] lg:w-[400px] block  rounded-lg bg-slate-50 p-2 border-2 border-gray-200"
+        />
+        <div
+          className="absolute top-9 right-5 cursor-pointer p-1 rounded-md hover:bg-slate-200"
+          onClick={() => setShowPassword((prev) => !prev)}
+        >
+          {showPassword ? <FiEyeOff /> : <FiEye />}
+        </div>
+        {errors.confirmPassword && (
+          <p className="text-red-500 mt-1">{errors.confirmPassword.message}</p>
+        )}
+      </div>
 
       {errorMessage && (
         <motion.p

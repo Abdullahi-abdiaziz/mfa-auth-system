@@ -1,5 +1,10 @@
 const Error = () => {
-  return <div>Un expected Error occured</div>;
+  return (
+    <div>
+      <i className="el el-exclamation-sign"></i>
+      Un expected Error occured
+    </div>
+  );
 };
 
 export default Error;

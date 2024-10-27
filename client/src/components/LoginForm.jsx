@@ -3,13 +3,15 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "../types/schema";
 import { loginUser } from "../services/api.auth";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Loading from "./Loading";
 import { motion } from "framer-motion";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
-const LoginForm = () => {
+// eslint-disable-next-line react/prop-types
+const LoginForm = ({ onSuccess }) => {
   const [errorMessage, setErrorMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     register,
@@ -19,17 +21,24 @@ const LoginForm = () => {
     resolver: zodResolver(loginSchema),
   });
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    if (showPassword) {
+      const timer = setTimeout(() => {
+        setShowPassword(false);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [showPassword]);
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (userData) => {
     try {
-      const response = await loginUser(data);
+      const { data } = await loginUser(userData);
 
-      if (response.data) {
-        return navigate("/");
+      if (data) {
+        onSuccess(data);
       }
 
-      setErrorMessage(response.data.message);
+      setErrorMessage(data.message);
     } catch (error) {
       setErrorMessage(error.response.data.message);
     }
@@ -50,20 +59,27 @@ const LoginForm = () => {
           {...register("email")}
           className="w-[300px] md:w-[320px] lg:w-[400px]  block rounded-lg bg-slate-50 p-2 border-2 border-gray-200"
         />
+
         {errors.email && (
           <p className="text-red-500 mt-1">{errors.email.message}</p>
         )}
       </div>
-      <div>
+      <div className="relative">
         <label>Password</label>
         <input
           autoComplete="false"
-          placeholder="Your password"
-          type="password"
+          placeholder="............"
+          type={showPassword ? "text" : "password"}
           id="password"
           {...register("password")}
           className="w-[300px] md:w-[320px] lg:w-[400px] block rounded-lg bg-slate-50 p-2 border-2 border-gray-200"
         />
+        <div
+          className="absolute top-9 right-5 cursor-pointer p-1 rounded-md hover:bg-slate-200"
+          onClick={() => setShowPassword((prev) => !prev)}
+        >
+          {showPassword ? <FiEyeOff /> : <FiEye />}
+        </div>
         {errors.password && (
           <p className="text-red-500 mt-1">{errors.password.message}</p>
         )}

@@ -1,9 +1,22 @@
 import LoginForm from "../components/LoginForm";
 import { motion } from "framer-motion";
+import { useSession } from "../contexts/SessionContext";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
+  const { login } = useSession();
+  const navigate = useNavigate();
+
+  // Handle login success
+  const handleLoginSuccess = (user) => {
+    login(user);
+
+    if (user.isMfaActive) return navigate("/verify-2fa");
+
+    return navigate("/setup-2fa");
+  };
   return (
-    <div className=" flex w-screen h-screen">
+    <div className=" flex w-screen h-screen overflow-x-hidden">
       <motion.div
         className="flex-1 flex flex-col justify-center items-center"
         initial={{ opacity: 0, x: -100 }}
@@ -14,19 +27,12 @@ const LoginPage = () => {
           <h2 className="text-center  mx-auto text-3xl font-extrabold my-6 uppercase text-black">
             Login Account
           </h2>
-          <LoginForm />
+          <LoginForm onSuccess={handleLoginSuccess} />
         </div>
       </motion.div>
 
       {/* Image Section */}
-      <motion.div
-        className="hidden md:flex flex-1 max-h-full  items-center justify-center bg-orange-400 rounded-s-2xl m-2 mr-0"
-        initial={{ opacity: 0, x: 100 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ type: "spring", duration: 1 }}
-      >
-        <img src="./login.png" className="w-1/2 object-cover m-4" alt="Login" />
-      </motion.div>
+      {/* \ */}
     </div>
   );
 };

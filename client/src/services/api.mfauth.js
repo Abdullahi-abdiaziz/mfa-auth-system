@@ -1,8 +1,8 @@
-import api from "./api.js";
+import { api } from "./api.js";
 
 export const setup2Fa = async () => {
   return await api.post(
-    "/auth/2fa/setup",
+    "/auth/mfa/setup",
     {},
     {
       withCredentials: true,
@@ -12,7 +12,7 @@ export const setup2Fa = async () => {
 
 export const verify2Fa = async (token) => {
   return await api.post(
-    "/auth/2fa/verify",
+    "/auth/mfa/verify",
     { token },
     {
       withCredentials: true,
@@ -22,7 +22,7 @@ export const verify2Fa = async (token) => {
 
 export const reset2Fa = async () => {
   return await api.post(
-    "/auth/2fa/reset",
+    "/auth/mfa/reset",
     {},
     {
       withCredentials: true,
