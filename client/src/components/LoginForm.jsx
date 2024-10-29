@@ -49,7 +49,7 @@ const LoginForm = ({ onSuccess }) => {
       className="flex flex-col gap-4 justify-center items-start mx-auto text-black p-10 text-base"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div>
+      <div className="w-full">
         <label>Email</label>
         <input
           type="email"
@@ -57,14 +57,14 @@ const LoginForm = ({ onSuccess }) => {
           autoComplete="false"
           id="email"
           {...register("email")}
-          className="w-[300px] md:w-[320px] lg:w-[400px]  block rounded-lg bg-slate-50 p-2 border-2 border-gray-200"
+          className="w-full  block rounded-lg bg-slate-50 p-2 border-2 border-gray-200"
         />
 
         {errors.email && (
           <p className="text-red-500 mt-1">{errors.email.message}</p>
         )}
       </div>
-      <div className="relative">
+      <div className="relative w-full">
         <label>Password</label>
         <input
           autoComplete="false"
@@ -72,7 +72,7 @@ const LoginForm = ({ onSuccess }) => {
           type={showPassword ? "text" : "password"}
           id="password"
           {...register("password")}
-          className="w-[300px] md:w-[320px] lg:w-[400px] block rounded-lg bg-slate-50 p-2 border-2 border-gray-200"
+          className="w-full block rounded-lg bg-slate-50 p-2 border-2 border-gray-200"
         />
         <div
           className="absolute top-9 right-5 cursor-pointer p-1 rounded-md hover:bg-slate-200"

@@ -2,6 +2,8 @@ import { useState } from "react";
 import { verify2Fa } from "../services/api.mfauth";
 import z from "zod";
 import { useNavigate } from "react-router-dom";
+import { MdVerifiedUser } from "react-icons/md";
+import TextHeader from "./TextHeader";
 
 // eslint-disable-next-line react/prop-types
 const VerifyModal = ({ handleClose }) => {
@@ -50,11 +52,21 @@ const VerifyModal = ({ handleClose }) => {
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.8)] flex justify-center items-center">
-      <div className="w-[400px] h-[300px] mx-2 sm:mx-auto rounded-xl bg-white border-2  p-2 sm:p-10 flex justify-center items-center flex-col">
-        <h1 className="text-2xl text-black mb-6">Verify Your Token</h1>
+      <div className="w-[420px] h-auto mx-2 sm:mx-auto rounded-xl bg-gradient-to-b from-blue-100/90 via-slate-100 to-white  border-2  p-2 sm:p-10 flex justify-center items-center flex-col">
+        <div className="text-center mb-4 flex flex-col">
+          <TextHeader
+            title="Verify Your Token"
+            subtitle={
+              "Enter the 6-digit verification code sent to authenticator"
+            }
+            icon={MdVerifiedUser}
+            variant={"green-500"}
+          />
+        </div>
         <input
           className="w-full block rounded-lg bg-slate-50 p-2 border-2 border-gray-200"
           maxLength={6}
+          autoComplete="off"
           placeholder="Enter code"
           value={inputValue}
           onChange={handleChange}

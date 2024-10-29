@@ -33,7 +33,7 @@ export const register = async (req, res) => {
       username,
       email,
       password: hashedPassword,
-      confirmPassword: hashedPassword,
+      isVerified: false,
       isMfaActive: false,
     });
     await newUser.save();
@@ -77,6 +77,7 @@ export const login = async (req, res, next) => {
         id: user._id,
         username: user.username,
         email: user.email,
+        isVerified: user.isVerified,
         isMfaActive: user.isMfaActive,
       };
 
@@ -99,6 +100,7 @@ export const status = async (req, res) => {
       message: "User is logged in",
       email: req.user.email,
       username: req.user.username,
+      isVerified: req.user.isVerified,
       isMfaActive: req.user.isMfaActive,
     });
   } else {

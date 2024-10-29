@@ -5,33 +5,39 @@ import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import Error from "./pages/Error";
 import RegisterPage from "./pages/RegisterPage";
+import Layout from "./components/Layout";
 
 const router = createBrowserRouter([
   {
-    path: "/login",
-    element: <LoginPage />,
-    errorElement: <Error />,
-  },
-
-  {
-    path: "/register",
-    element: <RegisterPage />,
-    errorElement: <Error />,
-  },
-
-  {
-    element: <ProtectedUserRoute />,
+    element: <Layout />,
     children: [
       {
-        path: "/",
-        element: <HomePage />,
+        path: "/login",
+        element: <LoginPage />,
         errorElement: <Error />,
       },
 
       {
-        path: "/setup-2fa",
-        element: <Setup2FAuth />,
+        path: "/register",
+        element: <RegisterPage />,
         errorElement: <Error />,
+      },
+
+      {
+        element: <ProtectedUserRoute />,
+        children: [
+          {
+            path: "/",
+            element: <HomePage />,
+            errorElement: <Error />,
+          },
+
+          {
+            path: "/setup-2fa",
+            element: <Setup2FAuth />,
+            errorElement: <Error />,
+          },
+        ],
       },
     ],
   },

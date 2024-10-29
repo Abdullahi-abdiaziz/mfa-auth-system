@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import { setup2Fa } from "../services/api.mfauth";
+import { HiOutlineQrcode } from "react-icons/hi";
+import { TbCopy } from "react-icons/tb";
+import TextHeader from "./TextHeader";
 
 // eslint-disable-next-line react/prop-types
 const TwoFactorSetup = ({ setShowModal }) => {
@@ -22,11 +25,16 @@ const TwoFactorSetup = ({ setShowModal }) => {
   };
 
   return (
-    <section className="w-[320px] md:w-[340px] lg:w-[450px] relative">
+    <section className="w-[320px] sm:w-[400px] lg:w-[500px] relative py-5">
       <div className="  text-black">
-        <p className="text-center text-sm mt-3"></p>
+        <TextHeader
+          title="Turn on 2-Step Verification"
+          subtitle="Open authenticator app and choose to scan QR code"
+          icon={HiOutlineQrcode} // Pass the icon here
+          variant={"blue-500"}
+        />
 
-        <div className="p-6">
+        <div className="p-3">
           <div className="flex justify-center">
             {loading ? (
               <div className="mb-4 w-[230px] h-[200px] p-10 border rounded-md bg-slate-100"></div>
@@ -41,18 +49,23 @@ const TwoFactorSetup = ({ setShowModal }) => {
           <div className="flex items-center mt-3 mb-3">
             <div className="border-t border-1 border-gray-200 flex-grow"></div>
             <p className="text-gray-600 text-sm font-light px-2">
-              OR Enter QR Code Manually
+              OR enter the code manually
             </p>
             <div className="border-t border-1 border-gray-200 flex-grow"></div>
           </div>
-          <div className="mb-6">
+          <div className="mb-6 flex items-center gap-2">
             <input
               readOnly
               defaultValue={""}
               value={response?.secret}
-              onClick={copyClipBoard}
               className="w-[300px] md:w-[320px] lg:w-[400px] block  rounded-lg bg-slate-50 p-2 border-2 border-gray-200"
             />
+            <div
+              className="bg-slate-50 p-2.5 text-gray-700 border-2 border-gray-200 rounded-md hover:text-gray-500 cursor-pointer"
+              onClick={copyClipBoard}
+            >
+              <TbCopy />
+            </div>
           </div>
           <button
             className="w-full p-2 mt-2 rounded-md bg-blue-500 text-white hover:bg-blue-600 transition-all duration-300"

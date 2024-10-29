@@ -4,7 +4,7 @@ import { SessionProvider } from "./contexts/SessionContext";
 
 const App = () => {
   return (
-    <div className="min-h-screen flex justify-center items-center bg-custom-gradient bg-contain bg-no-repeat relative z-50 bg-white">
+    <div className="min-h-screen bg-custom-gradient bg-contain bg-no-repeat relative z-50 bg-white">
       <div>
         <SessionProvider>
           <RouterProvider router={router} />

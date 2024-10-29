@@ -13,7 +13,7 @@ export const SessionProvider = ({ children }) => {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-    if (user) {
+    if (user && user.user.isVerified) {
       setIsLogin(true);
       setUser(user);
     } else {

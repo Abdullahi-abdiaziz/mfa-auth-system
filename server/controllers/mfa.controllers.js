@@ -37,6 +37,12 @@ export const setupMfa = async (req, res) => {
 export const verifyMfa = async (req, res) => {
   const { token } = req.body;
 
+  if (!token) {
+    return res.status(401).json({ message: "MFA token is required" });
+  }
+
+  const user = req.user;
+
   const verified = speakeasy.totp.verify({
     secret: req.user.twoFactorSecret,
     encoding: "base32",
@@ -49,6 +55,9 @@ export const verifyMfa = async (req, res) => {
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: "1hr" }
     );
+
+    user.isVerified = true;
+    await user.save();
 
     return res.status(200).json({
       message: "MFA verification successful",

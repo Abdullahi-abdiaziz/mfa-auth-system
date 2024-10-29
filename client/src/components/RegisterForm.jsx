@@ -57,8 +57,8 @@ const RegisterForm = () => {
   }, [errorMessage, successMessage, showPassword]);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="p-10 text-black">
-      <div className="mb-4">
+    <form onSubmit={handleSubmit(onSubmit)} className="p-10 py-2  text-black">
+      <div className="mb-4 w-full">
         <label>Email</label>
         <input
           type="email"
@@ -66,13 +66,13 @@ const RegisterForm = () => {
           autoComplete="false"
           id="email"
           {...register("email")}
-          className="w-[300px] md:w-[320px] lg:w-[400px]  block  rounded-lg bg-slate-50 p-2 border-2 border-gray-200"
+          className="w-full block  rounded-lg bg-slate-50 p-2 border-2 border-gray-200"
         />
         {errors.email && (
           <p className="text-red-500 mt-1">{errors.email.message}</p>
         )}
       </div>
-      <div className="mb-4">
+      <div className="mb-4 w-full">
         <label>Username</label>
         <input
           type="username"
@@ -80,13 +80,13 @@ const RegisterForm = () => {
           autoComplete="false"
           id="username"
           {...register("username")}
-          className="w-[300px] md:w-[320px] lg:w-[400px]  block  rounded-lg bg-slate-50 p-2 border-2 border-gray-200"
+          className="w-full block  rounded-lg bg-slate-50 p-2 border-2 border-gray-200"
         />
         {errors.username && (
           <p className="text-red-500 mt-1">{errors.username.message}</p>
         )}
       </div>
-      <div className="mb-4 relative">
+      <div className="mb-4 relative w-full">
         <label>Password</label>
         <input
           type={showPassword ? "text" : "password"}
@@ -94,7 +94,7 @@ const RegisterForm = () => {
           autoComplete="false"
           id="password"
           {...register("password")}
-          className="w-[300px] md:w-[320px] lg:w-[400px] block  rounded-lg bg-slate-50 p-2 border-2 border-gray-200"
+          className="w-full block  rounded-lg bg-slate-50 p-2 border-2 border-gray-200"
         />
         <div
           className="absolute top-9 right-5 cursor-pointer p-1 rounded-md hover:bg-slate-200"
@@ -106,13 +106,13 @@ const RegisterForm = () => {
           <p className="text-red-500 mt-1">{errors.password.message}</p>
         )}
       </div>
-      <div className="mb-4 relative">
+      <div className="mb-4 relative w-full">
         <label>Confirm Password</label>
         <input
           type={showPassword ? "text" : "password"}
           id="confirmPassword"
           {...register("confirmPassword")}
-          className="w-[300px] md:w-[320px] lg:w-[400px] block  rounded-lg bg-slate-50 p-2 border-2 border-gray-200"
+          className="w-full block  rounded-lg bg-slate-50 p-2 border-2 border-gray-200"
         />
         <div
           className="absolute top-9 right-5 cursor-pointer p-1 rounded-md hover:bg-slate-200"
