@@ -90,7 +90,7 @@ const RegisterForm = () => {
         <label>Password</label>
         <input
           type={showPassword ? "text" : "password"}
-          placeholder="............"
+          placeholder="••••••••••"
           autoComplete="false"
           id="password"
           {...register("password")}
@@ -110,6 +110,7 @@ const RegisterForm = () => {
         <label>Confirm Password</label>
         <input
           type={showPassword ? "text" : "password"}
+          placeholder="••••••••••"
           id="confirmPassword"
           {...register("confirmPassword")}
           className="w-full block  rounded-lg bg-slate-50 p-2 border-2 border-gray-200"

@@ -5,7 +5,7 @@ import passport from "passport";
 
 export const register = async (req, res) => {
   try {
-    const { username, email, password, confirmPassword } = req.body;
+    const { username, email, password } = req.body;
 
     if (!username || !email || !password) {
       return res
@@ -21,11 +21,6 @@ export const register = async (req, res) => {
         .json({ success: false, message: "User already exists" });
     }
 
-    if (confirmPassword !== password) {
-      return res
-        .status(400)
-        .json({ success: false, message: "check your password" });
-    }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -89,8 +84,16 @@ export const login = async (req, res, next) => {
 export const logout = async (req, res) => {
   if (!req.user) return res.status(401).json({ message: "Unauthorized User" });
   req.logout((err) => {
-    if (err) return res.status(400).json({ message: "User not logged in" });
-    res.status(200).json({ message: "User logged out" });
+    if (err) {
+      return next(err);
+    }
+    req.session.destroy((err) => {
+      if (err) {
+        return next(err);
+      }
+      res.clearCookie("connect.sid");
+      return res.status(200).json({ message: "Logged out successfully" });
+    });
   });
 };
 

@@ -1,5 +1,5 @@
 //App.js
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FaBars,
   FaHome,
@@ -12,18 +12,25 @@ import { logoutUser } from "../services/api.auth";
 import { Link, useNavigate } from "react-router-dom";
 import { RxAvatar } from "react-icons/rx";
 import { MdEmail } from "react-icons/md";
+import { motion } from "framer-motion";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [showUserDetails, setShowUserDetails] = useState(false);
   // Initialize the state for the mobile menu
-  const { user, logout } = useSession();
+  const { user, logout, isSessionExpired } = useSession();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isSessionExpired()) {
+      alert("Session has expired. Please log in again.");
+      logout();
+    }
+  }, [isSessionExpired, logout]);
 
   const handleLogout = async () => {
     try {
-      const { data } = await logoutUser();
-      console.log(data);
+      await logoutUser();
       logout(user);
       return navigate("/login");
     } catch (error) {
@@ -32,8 +39,8 @@ function Header() {
   };
 
   return (
-    <header className="bg-transparent text-black border-none">
-      <div className="mx-auto px-4 py-4 flex justify-between items-center">
+    <header className="text-black border-none">
+      <div className="bg-white/90 rounded-md mx-auto px-4 py-4 flex justify-between items-center">
         <div className="text-xl font-bold">Brand</div>
         <nav className="hidden md:flex space-x-10 ml-5 mr-5">
           <a href="/" className="flex items-center font-bold">
@@ -49,15 +56,15 @@ function Header() {
             Contact
           </a>
         </nav>
-        <div className="md:hidden">
-          <button onClick={() => setIsOpen(!isOpen)} className="">
-            <FaBars size={24} /> {/* Hamburger icon for mobile */}
-          </button>
-        </div>
 
-        <div>
+        <div className="flex items-center flex-row-reverse md:flex-row gap-3  space-x-5">
+          <div className="md:hidden">
+            <button onClick={() => setIsOpen(!isOpen)} className="">
+              <FaBars size={24} /> {/* Hamburger icon for mobile */}
+            </button>
+          </div>
           <button>
-            {user?.user?.isVerified ? (
+            {user ? (
               <UserButton
                 showUserDetails={showUserDetails}
                 setShowUserDetails={setShowUserDetails}
@@ -87,8 +94,13 @@ function Header() {
         </nav>
       )}
 
-      {user?.user?.isVerified && showUserDetails && (
-        <div className="fixed w-[300px] top-14 right-5 rounded-md p-3  bg-gray-200 text-black opacity-75 z-50">
+      {user && showUserDetails && (
+        <motion.div
+          className="fixed w-[300px] top-16 right-5 rounded-md p-3  bg-gray-200 text-black opacity-75 z-50"
+          initial={{ scale: 0, y: -200 }}
+          animate={{ scale: 1, y: 0 }}
+          transition={{ duration: 0.1 }}
+        >
           <div className="p-4 flex flex-col gap-2">
             <div className="flex flex-col  gap-2">
               <div className="font-bold flex items-center gap-2">
@@ -107,7 +119,7 @@ function Header() {
               Logout
             </button>
           </div>
-        </div>
+        </motion.div>
       )}
     </header>
   );

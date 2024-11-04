@@ -68,7 +68,7 @@ const LoginForm = ({ onSuccess }) => {
         <label>Password</label>
         <input
           autoComplete="false"
-          placeholder="............"
+          placeholder="••••••••••"
           type={showPassword ? "text" : "password"}
           id="password"
           {...register("password")}

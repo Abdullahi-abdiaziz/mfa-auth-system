@@ -4,10 +4,12 @@ import z from "zod";
 import { useNavigate } from "react-router-dom";
 import { MdVerifiedUser } from "react-icons/md";
 import TextHeader from "./TextHeader";
+import Loading from "./Loading";
 
 // eslint-disable-next-line react/prop-types
 const VerifyModal = ({ handleClose }) => {
   const [inputValue, setInputValue] = useState("");
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -15,26 +17,28 @@ const VerifyModal = ({ handleClose }) => {
     .string()
     .length(6)
     .regex(/^\d{6}$/, {
-      message: "Code must be exactly 6 digits",
+      message: "Code must be exactly 6 number digits",
     });
 
   const verifyCode = async () => {
-    // const validation = codeSchema.safeParse(inputValue);
-
-    // if (!validation.success) {
-    //   setError(validation.error.errors[0].message);
-    //   return;
-    // }
-
     try {
+      setLoading(true);
       const token = inputValue;
       console.log("Token verified:", token);
       const { data } = await verify2Fa(token);
       console.log("Token verified:", data);
+      setLoading(false);
       navigate("/");
       handleClose(); // Close the modal on successful verification
     } catch (apiError) {
+      setLoading(false);
       setError(apiError.response?.data?.message || "Verification failed");
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      verifyCode();
     }
   };
 
@@ -51,7 +55,7 @@ const VerifyModal = ({ handleClose }) => {
   };
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.8)] flex justify-center items-center">
+    <div className="fixed top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.6)] flex justify-center items-center">
       <div className="w-[420px] h-auto mx-2 sm:mx-auto rounded-xl bg-gradient-to-b from-blue-100/90 via-slate-100 to-white  border-2  p-2 sm:p-10 flex justify-center items-center flex-col">
         <div className="text-center mb-4 flex flex-col">
           <TextHeader
@@ -64,12 +68,13 @@ const VerifyModal = ({ handleClose }) => {
           />
         </div>
         <input
-          className="w-full block rounded-lg bg-slate-50 p-2 border-2 border-gray-200"
+          className="w-full block font-mono rounded-lg bg-slate-50 p-2 border-2 border-gray-200"
           maxLength={6}
           autoComplete="off"
           placeholder="Enter code"
           value={inputValue}
           onChange={handleChange}
+          onKeyDown={handleKeyDown}
         />
         {error && (
           <p className="text-red-700 bg-red-100 p-2 rounded-lg w-full mt-5 text-center ">
@@ -88,7 +93,7 @@ const VerifyModal = ({ handleClose }) => {
             className="w-full p-2 mt-2 rounded-md bg-green-500 text-white hover:bg-green-600 transition-all duration-300"
             onClick={verifyCode}
           >
-            Verify
+            {loading ? <Loading /> : "Verify"}
           </button>
         </div>
       </div>

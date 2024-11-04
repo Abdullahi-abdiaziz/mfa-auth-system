@@ -53,12 +53,12 @@ const TwoFactorSetup = ({ setShowModal }) => {
             </p>
             <div className="border-t border-1 border-gray-200 flex-grow"></div>
           </div>
-          <div className="mb-6 flex items-center gap-2">
+          <div className="mb-6 flex items-center justify-center gap-2">
             <input
               readOnly
               defaultValue={""}
               value={response?.secret}
-              className="w-[300px] md:w-[320px] lg:w-[400px] block  rounded-lg bg-slate-50 p-2 border-2 border-gray-200"
+              className="w-[250px] md:w-[300px] lg:w-[350px] font-mono block  rounded-lg bg-slate-50 p-2 border-2 border-gray-200"
             />
             <div
               className="bg-slate-50 p-2.5 text-gray-700 border-2 border-gray-200 rounded-md hover:text-gray-500 cursor-pointer"

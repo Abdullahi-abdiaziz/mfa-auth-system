@@ -38,7 +38,7 @@ export const verifyMfa = async (req, res) => {
   const { token } = req.body;
 
   if (!token) {
-    return res.status(401).json({ message: "MFA token is required" });
+    return res.status(401).json({ message: "auth token is required" });
   }
 
   const user = req.user;
@@ -53,7 +53,7 @@ export const verifyMfa = async (req, res) => {
     const accessToken = jwt.sign(
       { user: req.user.username },
       process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: "1hr" }
+      { expiresIn: "1hr" },
     );
 
     user.isVerified = true;
@@ -64,7 +64,7 @@ export const verifyMfa = async (req, res) => {
       token: accessToken,
     });
   } else {
-    return res.status(401).json({ message: "Invalid MFA token" });
+    return res.status(401).json({ message: "Invalid auth token" });
   }
 };
 

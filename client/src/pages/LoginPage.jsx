@@ -4,6 +4,7 @@ import { useSession } from "../contexts/SessionContext";
 import { useNavigate } from "react-router-dom";
 import TextHeader from "../components/TextHeader";
 import { IoMdLogIn } from "react-icons/io";
+import useBackToRoot from "../hooks/useBackToRoot";
 
 const LoginPage = () => {
   const { login } = useSession();
@@ -13,16 +14,15 @@ const LoginPage = () => {
   const handleLoginSuccess = (user) => {
     login(user);
 
-    if (user.user.isMfaActive) {
-      if (user.user.isVerified) {
-        return navigate("/");
-      } else {
-        return navigate("/setup-2fa");
-      }
+    if (user.user.isVerified) {
+      return navigate("/");
+    } else {
+      return navigate("/setup-2fa");
     }
   };
+
   return (
-    <div className="max-w-[350px] sm:max-w-[500px]  min-h-[90vh]   flex items-center justify-end mx-auto">
+    <div className=" max-w-[350px] sm:max-w-[500px]  min-h-[100vh]   flex items-center justify-end mx-auto">
       <motion.div
         className="flex-1 flex flex-col justify-center items-center"
         initial={{ opacity: 0, x: -100 }}
